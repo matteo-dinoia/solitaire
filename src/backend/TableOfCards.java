@@ -1,9 +1,7 @@
 package backend;
 
-import frontend.FrameGame;
 import interfaces.BackendHandler;
 import obj.*;
-
 
 public class TableOfCards implements BackendHandler{
 	public CardListColumn[] columns=new CardListColumn[App.NUM_COLS_TABLE];

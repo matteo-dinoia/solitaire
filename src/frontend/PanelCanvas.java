@@ -2,11 +2,11 @@ package frontend;
 
 import java.awt.*;
 import javax.swing.JPanel;
-import interfaces.BackendHandler;
+import interfaces.*;
 import obj.Card;
-import backend.App;
 import obj.CardCoord;
-import interfaces.MoveListener;
+import backend.App;
+
 
 /*TODO partial print-> backPartial(x, y) / frontPartial(x, y, cardToDisplay)*/
 public class PanelCanvas extends JPanel implements MoveListener{
