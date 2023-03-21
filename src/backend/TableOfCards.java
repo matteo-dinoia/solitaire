@@ -6,22 +6,13 @@ import obj.*;
 
 
 public class TableOfCards implements BackendHandler{
-
-
-	private FrameGame frame;
 	public CardListColumn[] columns=new CardListColumn[App.NUM_COLS_TABLE];
 	public CardListPile[] topPiles=new CardListPile[App.NUM_SLOT_PILE];
 	public CardListDeck deck =new CardListDeck();
 
-	public TableOfCards(FrameGame frame) {
-		this.frame = frame;
-
-		//For avoiding null-pointer
-		initializeArrays();
-
-		//Give card to deck and columns
+	public TableOfCards() {
+		initializeArrays(); //For avoiding null-pointer
 		distributeCards();
-
 	}
 	public void initializeArrays() {
 		//Array columns
@@ -48,11 +39,9 @@ public class TableOfCards implements BackendHandler{
 		}
 	}
 
-	private int DECK_ROW=CardCoord.DECK_ROW;
-
 	@Override public void operateMove(CardCoord startC, CardCoord destinationC) {
 		//NEW CARD
-		if(startC.getRow()==DECK_ROW && startC.getCol()==0) {
+		if(startC.getRow()==CardCoord.DECK_ROW && startC.getCol()==0) {
 			if(startC.isEqual(destinationC)) {
 				nextCardInDeck();
 				return;
@@ -127,22 +116,11 @@ public class TableOfCards implements BackendHandler{
 		return deck.isEmptyDeckPile();
 	}
 
-	//WINNING CHECK AND HANDLING  -----------------------------
-	@Override public void checkWon(){
-		if(hasWon())
-			frame.showWonPopup();
-	}
-
-	private boolean hasWon(){
+	@Override public boolean hasWon(){
 		for(int i=0; i<App.NUM_COLS_TABLE; i++){
 			if(columns[i].size()!=0) return false;
 		}
 
 		return deck.size()==0;
 	}
-
-
-	//---------------------------------------------------------
-
-
 }

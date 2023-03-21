@@ -21,7 +21,7 @@ public interface BackendHandler {
 	public int getSelectedNum(CardCoord start);
 
 	//OTHER  ---------------------------------------
-	public void checkWon();
+	public boolean hasWon();
 
 	//----------------------------------------------
 }

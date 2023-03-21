@@ -13,16 +13,17 @@ public class PanelCanvas extends JPanel implements MoveListener{
 	private static final long serialVersionUID = 883516271508061367L;
 	private MouseHandler mouse;
 	private BackendHandler backend;
+	private FrameGame frame;
 	private Graphics2D currentGraphics=null;
 
-	public PanelCanvas(BackendHandler backend) {
-		//Listener
+	public PanelCanvas(BackendHandler backend, FrameGame frame) {
+		this.backend = backend;
+		this.frame = frame;
+
 		mouse=new MouseHandler(this, backend);
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
 
-		//backend and parameters
-		this.backend = backend;
 		setParameters();
 		this.updateGraphics();
 	}
@@ -155,6 +156,6 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 		backend.operateMove(oldCoord, coord);
 		this.updateGraphics();
-		backend.checkWon();
+		if(backend.hasWon()) frame.showWonPopup();
 	}
 }

@@ -27,11 +27,10 @@ public class FrameGame extends JFrame implements ActionListener{
 		this.pack();
 	}
 	private void setNewUI() {
-		final Container base = this.getContentPane();
-		TableOfCards backend = new TableOfCards(this);
+		PanelCanvas canvas = new PanelCanvas(new TableOfCards(), this);
 
-		base.removeAll();
-		base.add(new JScrollPane(new PanelCanvas(backend)));
+		this.getContentPane().removeAll();
+		this.getContentPane().add(new JScrollPane(canvas));
 	}
 
 	//MENU  -----------------------------------------------------------
