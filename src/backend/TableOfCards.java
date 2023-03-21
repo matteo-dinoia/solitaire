@@ -69,7 +69,14 @@ public class TableOfCards implements BackendHandler{
 			CardList destination=getCardList(destinationC);
 			int numSelected=getSelectedNum(startC);
 
-			start.moveTo(destination, destinationC, numSelected);
+			if(start==destination){
+				start.moveToPile(topPiles[0]);
+				start.moveToPile(topPiles[1]);
+				start.moveToPile(topPiles[2]);
+				start.moveToPile(topPiles[3]);
+			}else{
+				start.moveTo(destination, destinationC, numSelected);
+			}
 		}
 	}
 
