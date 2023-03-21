@@ -23,14 +23,17 @@
 		</javac>
 	</target>
 
-	<target name="dist" depends="compile"
-	description="generate the distribution">
+	<target name="dist" depends="compile" description="generate the distribution">
 		<mkdir dir="${dist}"/>
 		<jar jarfile="${dist}/output-${DSTAMP}.jar" basedir="${build}">
 			<manifest>
 				<attribute name="Main-Class" value="backend.App"/>
 			</manifest>
 		</jar>
+	</target>
+
+	<target name="run" depends="compile" description="run the source">
+		<java classname="backend.App" dir="${build}" fork="true"></java>
 	</target>
 
 	<target name="clean" description="clean up">
