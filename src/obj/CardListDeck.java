@@ -82,6 +82,7 @@ public class CardListDeck extends CardList{
 	@Override public boolean moveToColumn(CardListColumn destination, int numSelected) {
 		return move(destination);
 	}
+
 	@Override public boolean moveToPile(CardListPile destination) {
 		return move(destination);
 	}
@@ -89,9 +90,4 @@ public class CardListDeck extends CardList{
 	@Override public boolean canStack(Card baseOfTop) {
 		return false;
 	}
-
-
-	//-------------------------------------------------
-
-
 }

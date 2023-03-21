@@ -73,20 +73,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 		xMouse=e.getX();
 		yMouse=e.getY();
 		offsetX= - (xMouse%(App.SPACE_BETWEEN+App.WIDTH)-App.SPACE_BETWEEN);
-		if(oldCoord.getRow()==CardCoord.DECK_ROW) {
+		if(oldCoord.getRow()==CardCoord.DECK_ROW)
 			offsetY= - (yMouse-App.SPACE_BETWEEN);
-		}
-		else {
+		else
 			offsetY= - ((yMouse-App.SPACE_BETWEEN*2-App.HEIGHT) - oldCoord.getRow()*App.PARTIAL_HEIGHT);
-		}
 		numCard = backend.getSelectedNum(oldCoord);
 	}
 
 	@Override public void mouseReleased(MouseEvent e) {
 		numCard = 0;
-
-		CardCoord coord=getCardCoordByMouseXY(e.getX(), e.getY());
-		moveListener.makeMove(oldCoord, coord);
+		moveListener.makeMove(oldCoord, getCardCoordByMouseXY(e.getX(), e.getY()));
 	}
 
 	@Override public void mouseDragged(MouseEvent e) {

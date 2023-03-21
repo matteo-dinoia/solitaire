@@ -45,10 +45,4 @@ public class CardListColumn extends CardList{
 		Card top=getTopCard();
 		if(top!=null) top.setHidden(false);
 	}
-
-
-	//-----------------------------------------------------
-
-
-
 }

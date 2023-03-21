@@ -3,14 +3,10 @@ package obj;
 import enumeration.*;
 
 public class Card {
-
-	//CONSTRUCTOR  --------------------------------
-
 	public Card(CardValue cardNumber, CardSuit cardSuit) {
 		this.cardValue = cardNumber;
 		this.cardSuit = cardSuit;
 	}
-
 
 	//GETTER AND SETTER  --------------------------
 	private CardValue cardValue;
@@ -42,22 +38,15 @@ public class Card {
 
 	//UTILITY METHODS  ----------------------------
 	public static boolean isCardStackableOnTop(Card bottom, Card top) {
-		if(top==null) return false;
+		if(top == null) return false;
+		if(bottom == null) return true; //IF nothing -> placable
 
-		//IF nothing -> placable
-		if(bottom==null) return true;
-
-
-		//ELSE different color and under number
 		return !bottom.isSameColor(top) && top.isCardNextNumber(bottom);
 	}
 	public static boolean isCardNextInPiles(Card bottom, Card top) {
 		if(top==null) return false;
-
-		//IF empty slot i can put it if ONE
 		if(bottom==null) return top.getCardValue()==CardValue.ONE;
 
-		//ELSE same suit and next number
 		return bottom.isSameSuit(top) && bottom.isCardNextNumber(top);
 	}
 

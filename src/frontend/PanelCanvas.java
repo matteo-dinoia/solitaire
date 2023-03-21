@@ -58,39 +58,36 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		paintCardFrontFull(getXColumnN(1), 10, backend.getDeckCard());
 
 		//PILES
-		for(int i=0; i<App.NUM_SLOT_PILE; i++) {
+		for(int i=0; i<App.NUM_SLOT_PILE; i++)
 			paintCardFrontFull(getXColumnN(i+3), 10, backend.getPileCard(i));
-		}
 
 		//COLUMNS
 		for(int i=0; i<App.NUM_COLS_TABLE; i++) {
 			for(int i2=0; i2<backend.getSizeColumnN(i) || i2==0; i2++) {
 				Card card=backend.getColumnCard(i, i2);
-				if(card!=null && card.isHidden()) {
+				if(card != null && card.isHidden())
 					paintCardBackFull(getXColumnN(i), getYColumnElementN(i2));
-				}else {
+				else
 					paintCardFrontFull(getXColumnN(i), getYColumnElementN(i2), card);
-				}
 			}
 		}
 
 		//GHOST
 		if(mouse.getNumSelected() > 0) {
-			for(int i = 0; i < mouse.getNumSelected(); i++) {
+			for(int i = 0; i < mouse.getNumSelected(); i++)
 				paintCardGhost(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT, App.HEIGHT+(mouse.getNumSelected()-i-1)*App.PARTIAL_HEIGHT);
-			}
 		}
 	}
 
 	private void fillRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.fillRoundRect(x, y, width, height, App.ROUNDED_CORNER_RADIUS, App.ROUNDED_CORNER_RADIUS);
+		currentGraphics.fillRoundRect(x, y, width, height, App.CORNER_RADIUS, App.CORNER_RADIUS);
 
 	}
 
 	private void drawRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.drawRoundRect(x, y, width, height, App.ROUNDED_CORNER_RADIUS, App.ROUNDED_CORNER_RADIUS);
+		currentGraphics.drawRoundRect(x, y, width, height, App.CORNER_RADIUS, App.CORNER_RADIUS);
 
 	}
 
@@ -116,38 +113,35 @@ public class PanelCanvas extends JPanel implements MoveListener{
 	private void paintCardFrontFull(int x, int y, Card cardToDisplay) {
 		if(cardToDisplay==null) { //missing card
 			fillAndDrawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black, Color.gray);
+			return;
 		}
-		else {
-			//BOLD SHAPE
-			fillRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.white);
-			drawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black);
 
-			Font fontBold=new Font("", Font.BOLD, 16);
-			Font fontBoldInverted=new Font("", Font.BOLD, -16);
+		//BOLD SHAPE
+		fillRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.white);
+		drawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black);
 
+		Font fontBold=new Font("", Font.BOLD, 16);
+		Font fontBoldInverted=new Font("", Font.BOLD, -16);
+		currentGraphics.setColor(cardToDisplay.getCardColor().getColorUI());
 
-			currentGraphics.setColor(cardToDisplay.getCardColor().getColorUI());
+		//DIPLAYING SIZE
+		String txt=cardToDisplay.getAbbreviation();
+		// get metrics from the graphics (like height and width of a string)
+		FontMetrics metrics = currentGraphics.getFontMetrics(fontBold);
+		int hgt = metrics.getAscent();
+		int adv = metrics.stringWidth(txt);
 
-
-			//DIPLAYING SIZE
-			String txt=cardToDisplay.getAbbreviation();
-			// get metrics from the graphics (like height and width of a string)
-			FontMetrics metrics = currentGraphics.getFontMetrics(fontBold);
-			int hgt = metrics.getAscent();
-			int adv = metrics.stringWidth(txt);
-
-
-			//PRINT TEXT
-			currentGraphics.setFont(fontBold);
-			currentGraphics.drawString(txt, x+App.WIDTH-10-adv, y+10+hgt);
-			currentGraphics.setFont(fontBoldInverted);
-			currentGraphics.drawString(txt, x+10+adv, y+App.HEIGHT-10-hgt);
-		}
+		//PRINT TEXT
+		currentGraphics.setFont(fontBold);
+		currentGraphics.drawString(txt, x+App.WIDTH-10-adv, y+10+hgt);
+		currentGraphics.setFont(fontBoldInverted);
+		currentGraphics.drawString(txt, x+10+adv, y+App.HEIGHT-10-hgt);
 	}
 
 	@Override public void updateGraphics(){
 		this.repaint();
 	}
+
 	@Override public void makeMove(CardCoord oldCoord, CardCoord coord){
 		if(oldCoord == null || coord == null){
 			this.updateGraphics();

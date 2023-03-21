@@ -44,7 +44,4 @@ public abstract class CardList {
 
 		return false;
 	}
-
-
-	//-----------------------------------------------
 }

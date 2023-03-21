@@ -11,7 +11,7 @@ public class App {
 			PARTIAL_HEIGHT=(int)(0.2*HEIGHT),
 			SPACE_BETWEEN=10,
 			LINE_THICKENESS = 4,
-			ROUNDED_CORNER_RADIUS= 20;
+			CORNER_RADIUS= 20;
 
 
 	public static void main(String args[]) {

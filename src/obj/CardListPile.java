@@ -24,8 +24,4 @@ public class CardListPile extends CardList{
 	@Override public boolean canStack(Card baseOfTop) {
 		return Card.isCardNextInPiles(getTopCard(), baseOfTop);
 	}
-
-
-	//-------------------------------------------------
-
 }

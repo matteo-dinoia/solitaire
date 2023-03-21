@@ -5,10 +5,8 @@ import javax.swing.*;
 import backend.TableOfCards;
 
 public class FrameGame extends JFrame implements ActionListener{
-	//COSTANTS  -----------------------------------------------------
 	private static final long serialVersionUID = 8167773692334768326L;
 
-	//CONSTRUCTOR AND UI/PARAMETERS  --------------------------------
 	public FrameGame() {
 		setNewUI();
 		setMenu();
