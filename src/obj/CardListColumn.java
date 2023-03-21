@@ -14,10 +14,10 @@ public class CardListColumn extends CardList{
 
 
 	//MOVE AND STACK  -------------------------------------
-	@Override public void moveToColumn(CardListColumn destination, int numSelected) {
+	@Override public boolean moveToColumn(CardListColumn destination, int numSelected) {
 		//Check if stackable
 		int baseInt=size()-numSelected;
-		if(!destination.canStack(get(baseInt))|| numSelected<1)return;
+		if(!destination.canStack(get(baseInt))|| numSelected<1) return false;
 
 		//Move truly
 		for(int i=0; i<numSelected; i++) {
@@ -25,14 +25,17 @@ public class CardListColumn extends CardList{
 			this.remove(baseInt);
 		}
 
-
 		//set visibility
 		setVisibleTopCard();
+		return true;
 	}
-	@Override public void moveToPile(CardListPile destination) {
-		move(destination);
+	@Override public boolean moveToPile(CardListPile destination) {
+		if(move(destination)){
+			setVisibleTopCard();
+			return true;
+		}
 
-		setVisibleTopCard();
+		return false;
 	}
 
 	@Override public boolean canStack(Card baseOfTop) {

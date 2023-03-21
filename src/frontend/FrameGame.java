@@ -65,7 +65,7 @@ public class FrameGame extends JFrame implements ActionListener{
 		int response = JOptionPane.showConfirmDialog(this,
 			"Would you like to play another game?",
 			"You Won",
-			JOptionPane.YES_NO_OPTION);
+			JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 		if(response == JOptionPane.YES_OPTION){
 			setNewUI();

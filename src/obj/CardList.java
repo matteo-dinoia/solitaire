@@ -26,19 +26,23 @@ public abstract class CardList {
 
 
 	//MOVING AND STACK  -----------------------------
-	public abstract void moveToColumn(CardListColumn destination, int numSelected);
-	public abstract void moveToPile(CardListPile destination);
-	public void moveTo(CardList destination, CardCoord destinationC,int numSelected) {
-		if(destinationC.isColumn()) this.moveToColumn((CardListColumn) destination, numSelected);
-		else if(destinationC.isPiles()) this.moveToPile((CardListPile)destination);
+	public abstract boolean moveToColumn(CardListColumn destination, int numSelected);
+	public abstract boolean moveToPile(CardListPile destination);
+	public boolean moveTo(CardList destination, CardCoord destinationC,int numSelected) {
+		if(destinationC.isColumn()) return this.moveToColumn((CardListColumn) destination, numSelected);
+		else if(destinationC.isPiles()) return this.moveToPile((CardListPile)destination);
+		else return false;
 	}
 
 	public abstract boolean canStack(Card baseOfTop);
-	protected void move(CardList destination) {
+	protected boolean move(CardList destination) {
 		if(destination.canStack(getTopCard())) {
 			destination.add(getTopCard());
 			this.removeTopCard();
+			return true;
 		}
+
+		return false;
 	}
 
 

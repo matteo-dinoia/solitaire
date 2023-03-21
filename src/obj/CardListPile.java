@@ -14,11 +14,11 @@ public class CardListPile extends CardList{
 
 
 	//MOVE AND STACK  --------------------------------
-	@Override public void moveToColumn(CardListColumn destination, int numSelected) {
-		move(destination);
+	@Override public boolean moveToColumn(CardListColumn destination, int numSelected) {
+		return move(destination);
 	}
-	@Override public void moveToPile(CardListPile destination) {
-		move(destination);
+	@Override public boolean moveToPile(CardListPile destination) {
+		return move(destination);
 	}
 
 	@Override public boolean canStack(Card baseOfTop) {

@@ -17,7 +17,7 @@ public interface BackendHandler {
 
 
 	//MOVEMENT  ------------------------------------
-	public void operateMoves(CardCoord start, CardCoord destination);
+	public void operateMove(CardCoord start, CardCoord destination);
 	public int getSelectedNum(CardCoord start);
 
 	//OTHER  ---------------------------------------
