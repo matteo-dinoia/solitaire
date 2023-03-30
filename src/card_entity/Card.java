@@ -10,25 +10,15 @@ public class Card {
 
 	//GETTER AND SETTER  --------------------------
 	private CardValue cardValue;
-	public CardValue getCardValue() {
-		return cardValue;
-	}
+	public CardValue getCardValue() { return cardValue; }
 
 	private CardSuit cardSuit;
-	public CardSuit getCardSuit() {
-		return cardSuit;
-	}
-	public Color getCardColor() {
-		return cardSuit.getColor();
-	}
+	public CardSuit getCardSuit() { return cardSuit; }
+	public Color getCardColor() { return cardSuit.getColor(); }
 
 	private boolean hidden;
-	public boolean isHidden() {
-		return hidden;
-	}
-	public void setHidden(boolean hidden) {
-		this.hidden= hidden;
-	}
+	public boolean isHidden() { return hidden; }
+	public void setHidden(boolean hidden) { this.hidden= hidden; }
 
 	//ABBREVIATION  -------------------------------
 	public String getAbbreviation() {

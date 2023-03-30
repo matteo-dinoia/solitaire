@@ -20,14 +20,10 @@ public class CardCoord {
 
 	//GETTER AND SETTER  -------------------------------------------
 	private int col;
-	public int getCol() {
-		return col;
-	}
+	public int getCol() { return col; }
 
 	private int row;
-	public int getRow() {
-		return row;
-	}
+	public int getRow() { return row; }
 
 
 	//OTHER  -----------------------------------------------------

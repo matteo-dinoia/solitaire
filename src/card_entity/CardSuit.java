@@ -17,13 +17,9 @@ public enum CardSuit {
 
 	//GETTER AND SETTER  ---------------------
 	private Color cardColor;
-	public Color getColor() {
-		return cardColor;
-	}
+	public Color getColor() { return cardColor; }
 
 	private String abbreviation;
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-	//----------------------------------------
+	public String getAbbreviation() { return abbreviation; }
+
 }

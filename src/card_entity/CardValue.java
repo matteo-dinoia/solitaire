@@ -15,13 +15,8 @@ public enum CardValue {
 
 	//GETTER AND SETTER  ---------------------
 	private int value;
-	public int getIntValue() {
-		return value;
-	}
+	public int getIntValue() { return value; }
 
 	private String abbreviation;
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-	//----------------------------------------
+	public String getAbbreviation() { return abbreviation; }
 }
