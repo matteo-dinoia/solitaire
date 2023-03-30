@@ -1,6 +1,5 @@
 package interfaces;
 
-import card_list.*;
 import card_entity.Card;
 import card_entity.CardCoord;
 
