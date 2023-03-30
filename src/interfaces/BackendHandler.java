@@ -1,6 +1,8 @@
 package interfaces;
 
-import obj.*;
+import card_list.*;
+import card_entity.Card;
+import card_entity.CardCoord;
 
 public interface BackendHandler {
 	public int getSizeColumnN(int column);

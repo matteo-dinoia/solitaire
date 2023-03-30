@@ -1,4 +1,6 @@
-package obj;
+package card_list;
+
+import card_entity.Card;
 
 public class CardListPile extends CardList{
 

@@ -1,9 +1,8 @@
-package obj;
+package card_list;
 
 import java.util.Collections;
 
-import enumeration.CardSuit;
-import enumeration.CardValue;
+import card_entity.*;
 
 public class CardListDeck extends CardList{
 

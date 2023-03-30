@@ -1,4 +1,4 @@
-package obj;
+package card_entity;
 
 public class CardCoord {
 	public static final int NOT_VALID_POINT=-2;

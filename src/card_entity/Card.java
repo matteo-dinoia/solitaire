@@ -1,6 +1,6 @@
-package obj;
+package card_entity;
 
-import enumeration.*;
+import java.awt.Color;
 
 public class Card {
 	public Card(CardValue cardNumber, CardSuit cardSuit) {
@@ -18,7 +18,7 @@ public class Card {
 	public CardSuit getCardSuit() {
 		return cardSuit;
 	}
-	public CardColor getCardColor() {
+	public Color getCardColor() {
 		return cardSuit.getColor();
 	}
 

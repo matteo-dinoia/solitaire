@@ -1,6 +1,9 @@
-package obj;
+package card_list;
 
 import java.util.ArrayList;
+
+import card_entity.Card;
+import card_entity.CardCoord;
 
 public abstract class CardList {
 

@@ -1,7 +1,9 @@
 package backend;
 
+import card_list.*;
+import card_entity.Card;
+import card_entity.CardCoord;
 import interfaces.BackendHandler;
-import obj.*;
 
 public class TableOfCards implements BackendHandler{
 	public CardListColumn[] columns=new CardListColumn[App.NUM_COLS_TABLE];

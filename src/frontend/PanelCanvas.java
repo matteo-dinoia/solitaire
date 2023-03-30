@@ -3,9 +3,9 @@ package frontend;
 import java.awt.*;
 import javax.swing.JPanel;
 import interfaces.*;
-import obj.Card;
-import obj.CardCoord;
 import backend.App;
+import card_entity.Card;
+import card_entity.CardCoord;
 
 
 /*TODO partial print-> backPartial(x, y) / frontPartial(x, y, cardToDisplay)*/
@@ -122,7 +122,7 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 		Font fontBold=new Font("", Font.BOLD, 16);
 		Font fontBoldInverted=new Font("", Font.BOLD, -16);
-		currentGraphics.setColor(cardToDisplay.getCardColor().getColorUI());
+		currentGraphics.setColor(cardToDisplay.getCardColor());
 
 		//DIPLAYING SIZE
 		String txt=cardToDisplay.getAbbreviation();

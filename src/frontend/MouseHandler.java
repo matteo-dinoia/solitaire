@@ -1,9 +1,10 @@
 package frontend;
 
 import java.awt.event.*;
-import obj.CardCoord;
+
 import interfaces.*;
 import backend.App;
+import card_entity.CardCoord;
 
 public class MouseHandler implements MouseListener, MouseMotionListener{
 	private CardCoord oldCoord=null;
