@@ -152,4 +152,8 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		this.updateGraphics();
 		if(backend.hasWon()) frame.showWonPopup();
 	}
+	@Override public Card[] getPileSelected(CardCoord coord) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getPileSelected'");
+	}
 }

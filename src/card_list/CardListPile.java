@@ -1,29 +1,19 @@
 package card_list;
 
 import card_entity.Card;
+import card_entity.CardValue;
 
-public class CardListPile extends CardList{
+public class CardListPile extends CardList {
 
-	//TOP CARD  --------------------------------------
-	@Override public void removeTopCard() {
-		if(size()>0) list.remove(list.size()-1);
+	public CardListPile() { super(true); }
 
-	}
-	@Override public Card getTopCard() {
-		if(size()>0) return list.get(list.size()-1);
-		else return null;
-	}
+	@Override
+	protected boolean canStack(Card toStack) {
+		if(this.list.isEmpty())
+			return toStack.getCardValue() == CardValue.ONE;
 
-
-	//MOVE AND STACK  --------------------------------
-	@Override public boolean moveToColumn(CardListColumn destination, int numSelected) {
-		return move(destination);
-	}
-	@Override public boolean moveToPile(CardListPile destination) {
-		return move(destination);
+		Card topCard = list.get(list.size() - 1);
+		return topCard.isCardPreviousOf(toStack) && toStack.isSameSuit(topCard);
 	}
 
-	@Override public boolean canStack(Card baseOfTop) {
-		return Card.isCardNextInPiles(getTopCard(), baseOfTop);
-	}
 }

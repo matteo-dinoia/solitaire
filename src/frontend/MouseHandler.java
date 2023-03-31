@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 import interfaces.*;
 import backend.App;
+import card_entity.Card;
 import card_entity.CardCoord;
 
 public class MouseHandler implements MouseListener, MouseMotionListener{
@@ -23,7 +24,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 	public int getNumSelected(){return numCard;}
 
 
-	/**return -2 if not valid, else it return a column index (0 to 6)*/
+	/**@return -2 if not valid, else it return a column index (0 to 6)*/
 	public int getColumnByMouseX(int x) {
 
 		//IF not in spaces between

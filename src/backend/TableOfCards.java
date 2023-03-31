@@ -24,19 +24,12 @@ public class TableOfCards implements BackendHandler{
 		}
 	}
 	public void distributeCards() {
-		//fill the deck with all the cards
-		deck=CardListDeck.getFullDeckShuffled();
 		for(int col=0; col<7; col++) {
 			for(int row=0; row<=col; row++) {
-				Card card=deck.get(0);
-				deck.remove(0);
-
-				//visible only if top
-				if(col!=row)card.setHidden(true);
-
-				columns[col].add(card);
+				deck.giveCardToColumns(columns[col], col!=row);
 			}
 		}
+		deck.turnDeckCard();
 	}
 
 	@Override public void operateMove(CardCoord startC, CardCoord destinationC) {
@@ -53,12 +46,12 @@ public class TableOfCards implements BackendHandler{
 			CardList destination=getCardList(destinationC);
 			int numSelected=getSelectedNum(startC);
 
-			if(start==destination){
-				for(int i=0; i<App.NUM_SLOT_PILE; i++){
-					if(start.moveToPile(topPiles[i])) break;
+			if(start == destination){
+				for(int i=0; i < App.NUM_SLOT_PILE; i++){
+					if(start.moveTo(topPiles[i])) break;
 				}
-			}else{
-				start.moveTo(destination, destinationC, numSelected);
+			}else if(destination != null){
+				start.moveTo(destination, numSelected);
 			}
 		}
 	}
@@ -66,7 +59,7 @@ public class TableOfCards implements BackendHandler{
 
 	@Override public int getSelectedNum(CardCoord start) {
 		if(start.isDeck()) return 0;
-		else if(start.isPiles() && topPiles[start.getCol()-3].size()==0) return 0;
+		else if(start.isPiles() && topPiles[start.getCol()-3].isEmpty()) return 0;
 		else if(!start.isColumn()) return 1;
 
 		return getSizeColumnN(start.getCol()) - start.getRow();
@@ -81,14 +74,14 @@ public class TableOfCards implements BackendHandler{
 
 
 	@Override public int getSizeColumnN(int col) { //TODO error handling
-		return columns[col].size();
+		return columns[col].getSizeTemp();
 	}
 
 	@Override public Card getColumnCard(int column, int indexInColumn) {
 		Card ris=null;
 
 		try {
-			ris=columns[column].get(indexInColumn);
+			ris=columns[column].getTemp(indexInColumn);
 		}catch(IndexOutOfBoundsException er){}
 
 		return ris;
@@ -98,7 +91,7 @@ public class TableOfCards implements BackendHandler{
 		Card ris=null;
 
 		try {
-			ris=topPiles[indexPile].getTopCard();
+			ris=topPiles[indexPile].getTopTemp();
 		}catch(IndexOutOfBoundsException er){}
 
 		return ris;
@@ -109,7 +102,7 @@ public class TableOfCards implements BackendHandler{
 	}
 
 	@Override public void nextCardInDeck() {
-		deck.nextDeckCard();
+		deck.turnDeckCard();
 	}
 
 	@Override public boolean isEmplyDeckPile() {
@@ -118,9 +111,9 @@ public class TableOfCards implements BackendHandler{
 
 	@Override public boolean hasWon(){
 		for(int i=0; i<App.NUM_COLS_TABLE; i++){
-			if(columns[i].size()!=0) return false;
+			if(!columns[i].isEmpty()) return false;
 		}
 
-		return deck.size()==0;
+		return deck.isEmpty();
 	}
 }
