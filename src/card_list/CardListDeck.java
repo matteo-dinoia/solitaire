@@ -44,7 +44,7 @@ public class CardListDeck extends CardList {
 			list.add(listHidden.get(listHidden.size() - 1));
 			listHidden.remove(listHidden.size() - 1);
 		}else if(!list.isEmpty()){
-			for(int i = list.size() - 1; i > 0; i--){
+			for(int i = list.size() - 1; i >= 0; i--){
 				listHidden.add(list.get(i));
 				list.remove(i);
 			}

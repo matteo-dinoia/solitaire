@@ -9,6 +9,8 @@ public class CardListPile extends CardList {
 
 	@Override
 	protected boolean canStack(Card toStack) {
+		if(toStack.isHidden()) return false;
+
 		if(this.list.isEmpty())
 			return toStack.getCardValue() == CardValue.ONE;
 
