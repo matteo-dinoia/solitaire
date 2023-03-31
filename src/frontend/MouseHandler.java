@@ -4,7 +4,6 @@ import java.awt.event.*;
 
 import interfaces.*;
 import backend.App;
-import card_entity.Card;
 import card_entity.CardCoord;
 
 public class MouseHandler implements MouseListener, MouseMotionListener{
