@@ -6,8 +6,8 @@ import card_entity.CardCoord;
 import interfaces.BackendHandler;
 
 public class TableOfCards implements BackendHandler{
-	public CardListColumn[] columns=new CardListColumn[App.NUM_COLS_TABLE];
-	public CardListPile[] topPiles=new CardListPile[App.NUM_SLOT_PILE];
+	public CardListColumn[] columns=new CardListColumn[Settings.NUM_COLS_TABLE];
+	public CardListPile[] topPiles=new CardListPile[Settings.NUM_SLOT_PILE];
 	public CardListDiscarded deck =new CardListDiscarded();
 
 	public TableOfCards() {
@@ -47,7 +47,7 @@ public class TableOfCards implements BackendHandler{
 			int numSelected=getSelectedNum(startC);
 
 			if(start == destination){
-				for(int i=0; i < App.NUM_SLOT_PILE; i++){
+				for(int i=0; i < Settings.NUM_SLOT_PILE; i++){
 					if(start.moveTo(topPiles[i])) break;
 				}
 			}else if(destination != null){
@@ -111,7 +111,7 @@ public class TableOfCards implements BackendHandler{
 	}
 
 	@Override public boolean hasWon(){
-		for(int i=0; i<App.NUM_COLS_TABLE; i++){
+		for(int i=0; i<Settings.NUM_COLS_TABLE; i++){
 			if(!columns[i].isEmpty()) return false;
 		}
 

@@ -3,7 +3,7 @@ package frontend;
 import java.awt.event.*;
 
 import interfaces.*;
-import backend.App;
+import backend.Settings;
 import card_entity.CardCoord;
 import card_list.SubCardList;
 
@@ -28,32 +28,32 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 	public int getColumnByMouseX(int x) {
 
 		//IF not in spaces between
-		int remaining = x%(App.WIDTH + App.SPACE_BETWEEN);
-		if(remaining<App.SPACE_BETWEEN)  return CardCoord.NOT_VALID_POINT;
+		int remaining = x%(Settings.WIDTH + Settings.SPACE_BETWEEN);
+		if(remaining<Settings.SPACE_BETWEEN)  return CardCoord.NOT_VALID_POINT;
 
 		//ELSE return value of column
-		int col = x/(App.WIDTH + App.SPACE_BETWEEN);
+		int col = x/(Settings.WIDTH + Settings.SPACE_BETWEEN);
 		if(col<0||col>=7) return CardCoord.NOT_VALID_POINT;
 		return col;
 	}
 
 	public int getRowByMouseY(int y, int col) {
 		//DECK
-		if(App.SPACE_BETWEEN<y && y<App.SPACE_BETWEEN+App.HEIGHT)
+		if(Settings.SPACE_BETWEEN<y && y<Settings.SPACE_BETWEEN+Settings.HEIGHT)
 			return CardCoord.DECK_ROW;
-		else if(y<App.SPACE_BETWEEN*2+App.HEIGHT)
+		else if(y<Settings.SPACE_BETWEEN*2+Settings.HEIGHT)
 			return  CardCoord.NOT_VALID_POINT;
 
 		//NORMAL
-		int yRelative = y - (App.SPACE_BETWEEN*2 + App.HEIGHT);
+		int yRelative = y - (Settings.SPACE_BETWEEN*2 + Settings.HEIGHT);
 		int sizeCol=backend.getSizeColumnN(col);
-		int index = yRelative/App.PARTIAL_HEIGHT;
+		int index = yRelative/Settings.PARTIAL_HEIGHT;
 
 		if(index<sizeCol) return index;
 		else if(sizeCol==0) {
-			if(yRelative < App.HEIGHT) return 0;
+			if(yRelative < Settings.HEIGHT) return 0;
 		}
-		else if(yRelative - App.PARTIAL_HEIGHT*(sizeCol-1) < App.HEIGHT) {
+		else if(yRelative - Settings.PARTIAL_HEIGHT*(sizeCol-1) < Settings.HEIGHT) {
 			return sizeCol-1;  //Last larger card
 		}
 
@@ -74,11 +74,11 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 
 		xMouse=e.getX();
 		yMouse=e.getY();
-		offsetX= - (xMouse%(App.SPACE_BETWEEN+App.WIDTH)-App.SPACE_BETWEEN);
+		offsetX= - (xMouse%(Settings.SPACE_BETWEEN+Settings.WIDTH)-Settings.SPACE_BETWEEN);
 		if(oldCoord.getRow()==CardCoord.DECK_ROW)
-			offsetY= - (yMouse-App.SPACE_BETWEEN);
+			offsetY= - (yMouse-Settings.SPACE_BETWEEN);
 		else
-			offsetY= - ((yMouse-App.SPACE_BETWEEN*2-App.HEIGHT) - oldCoord.getRow()*App.PARTIAL_HEIGHT);
+			offsetY= - ((yMouse-Settings.SPACE_BETWEEN*2-Settings.HEIGHT) - oldCoord.getRow()*Settings.PARTIAL_HEIGHT);
 		selectedCards = backend.getSubCardList(oldCoord);
 		if(selectedCards != null) selectedCards.setVisibilityCards(false);
 	}

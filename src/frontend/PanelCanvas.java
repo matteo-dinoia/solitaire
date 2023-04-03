@@ -3,7 +3,7 @@ package frontend;
 import java.awt.*;
 import javax.swing.JPanel;
 import interfaces.*;
-import backend.App;
+import backend.Settings;
 import card_entity.Card;
 import card_entity.CardCoord;
 import card_entity.CardValue;
@@ -35,11 +35,11 @@ public class PanelCanvas extends JPanel implements MoveListener{
 	}
 
 	private int getXColumnN(int numOfColumn) {
-		return (numOfColumn + 1) * App.SPACE_BETWEEN + numOfColumn * App.WIDTH;
+		return (numOfColumn + 1) * Settings.SPACE_BETWEEN + numOfColumn * Settings.WIDTH;
 	}
 
 	private int getYColumnElementN(int indexElementInColumn) {
-		return (App.SPACE_BETWEEN * 2 + App.HEIGHT) + App.PARTIAL_HEIGHT * indexElementInColumn;
+		return (Settings.SPACE_BETWEEN * 2 + Settings.HEIGHT) + Settings.PARTIAL_HEIGHT * indexElementInColumn;
 	}
 
 
@@ -62,7 +62,7 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		paintCardFrontFull(getXColumnN(1), 10, backend.getDeckCard(), false);
 
 		//PILES
-		for(int i=0; i<App.NUM_SLOT_PILE; i++){
+		for(int i=0; i<Settings.NUM_SLOT_PILE; i++){
 			Card c = backend.getPileCard(i);
 
 			if(c != null){
@@ -81,7 +81,7 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 
 		//COLUMNS
-		for(int i=0; i<App.NUM_COLS_TABLE; i++) {
+		for(int i=0; i<Settings.NUM_COLS_TABLE; i++) {
 			paintCardFrontFull(getXColumnN(i), getYColumnElementN(0), null, false); //TODO REMOVE
 
 			for(int i2=0; i2<backend.getSizeColumnN(i); i2++) {
@@ -100,22 +100,22 @@ public class PanelCanvas extends JPanel implements MoveListener{
 				Card card = selected.get(i);
 
 				if(card != null && card.isHidden())
-					paintCardBackFull(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT);
+					paintCardBackFull(mouse.getX(), mouse.getY() + i * Settings.PARTIAL_HEIGHT);
 				else
-					paintCardFrontFull(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT, card, true);
+					paintCardFrontFull(mouse.getX(), mouse.getY() + i * Settings.PARTIAL_HEIGHT, card, true);
 			}
 		}
 	}
 
 	private void fillRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.fillRoundRect(x, y, width, height, App.CORNER_RADIUS, App.CORNER_RADIUS);
+		currentGraphics.fillRoundRect(x, y, width, height, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
 
 	}
 
 	private void drawRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.drawRoundRect(x, y, width, height, App.CORNER_RADIUS, App.CORNER_RADIUS);
+		currentGraphics.drawRoundRect(x, y, width, height, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
 
 	}
 
@@ -126,27 +126,27 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 
 	private void paintCardBackFull(int x, int y) {
-		fillAndDrawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black, Color.blue);
-		fillAndDrawRoundRect(x+App.LINE_THICKENESS*2, y+App.LINE_THICKENESS*2, App.WIDTH-4*App.LINE_THICKENESS, App.HEIGHT-4*App.LINE_THICKENESS, Color.black, Color.CYAN);
-		fillAndDrawRoundRect(x+App.LINE_THICKENESS*3, y+App.LINE_THICKENESS*3, App.WIDTH-6*App.LINE_THICKENESS, App.HEIGHT-6*App.LINE_THICKENESS, Color.black, Color.blue);
+		fillAndDrawRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.black, Color.blue);
+		fillAndDrawRoundRect(x+Settings.LINE_THICKENESS*2, y+Settings.LINE_THICKENESS*2, Settings.WIDTH-4*Settings.LINE_THICKENESS, Settings.HEIGHT-4*Settings.LINE_THICKENESS, Color.black, Color.CYAN);
+		fillAndDrawRoundRect(x+Settings.LINE_THICKENESS*3, y+Settings.LINE_THICKENESS*3, Settings.WIDTH-6*Settings.LINE_THICKENESS, Settings.HEIGHT-6*Settings.LINE_THICKENESS, Color.black, Color.blue);
 	}
 
 	/*private void paintCardGhost(int x, int y, int height) {
-		drawRoundRect(x, y, App.WIDTH, height, Color.black);
-		drawRoundRect(x+1, y+1, App.WIDTH-2, height-2, Color.black);
-		drawRoundRect(x+2, y+2, App.WIDTH-4, height-4, Color.black);
-		drawRoundRect(x+3, y+3, App.WIDTH-6, height-6, Color.black);
+		drawRoundRect(x, y, Settings.WIDTH, height, Color.black);
+		drawRoundRect(x+1, y+1, Settings.WIDTH-2, height-2, Color.black);
+		drawRoundRect(x+2, y+2, Settings.WIDTH-4, height-4, Color.black);
+		drawRoundRect(x+3, y+3, Settings.WIDTH-6, height-6, Color.black);
 	}*/
 
 	private void paintCardFrontFull(int x, int y, Card cardToDisplay, boolean forceDisplay) {
 		if(cardToDisplay == null) { //missing card
-			fillAndDrawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black, Color.gray);
+			fillAndDrawRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.black, Color.gray);
 			return;
 		}else if(!cardToDisplay.isVisible() && !forceDisplay) return;
 
 		//BOLD SHAPE
-		fillRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.white);
-		drawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black);
+		fillRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.white);
+		drawRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.black);
 
 		Font fontBold=new Font("", Font.BOLD, 16);
 		Font fontBoldInverted=new Font("", Font.BOLD, -16);
@@ -161,9 +161,9 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 		//PRINT TEXT
 		currentGraphics.setFont(fontBold);
-		currentGraphics.drawString(txt, x+App.WIDTH-10-adv, y+10+hgt);
+		currentGraphics.drawString(txt, x+Settings.WIDTH-10-adv, y+10+hgt);
 		currentGraphics.setFont(fontBoldInverted);
-		currentGraphics.drawString(txt, x+10+adv, y+App.HEIGHT-10-hgt);
+		currentGraphics.drawString(txt, x+10+adv, y+Settings.HEIGHT-10-hgt);
 	}
 
 	@Override public void updateGraphics(){

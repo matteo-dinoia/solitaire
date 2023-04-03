@@ -1,11 +1,11 @@
 package card_entity;
 
-import backend.App;
+import backend.Settings;
 
 public enum CardValue {
 
 	//VALUE  --------------------------------
-	ONE(1, App.ACE_INSTEAD_OF_1 ? "A" : "1"),
+	ONE(1, "1"),
 	TWO(2, "2"), THREE(3, "3"), FOUR(4, "4"), FIVE(5, "5"),
 	SIX(6, "6"), SEVEN(7, "7"), EIGHT(8, "8"), NINE(9, "9"), TEN(10, "10"),
 	JACK(11, "J"), QUEEN(12, "Q"), KING(13, "K");
@@ -21,7 +21,12 @@ public enum CardValue {
 	public int getIntValue() { return value; }
 
 	private String abbreviation;
-	public String getAbbreviation() { return abbreviation; }
+	public String getAbbreviation() {
+		if(this.getIntValue() == 1 && Settings.aceInsetad)
+			return "A";
+
+		return abbreviation;
+	}
 
 	//UTILS
 	private CardValue getByInt(int val){
