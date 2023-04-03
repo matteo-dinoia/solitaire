@@ -12,6 +12,9 @@ public class App {
 			SPACE_BETWEEN=10,
 			LINE_THICKENESS = 4,
 			CORNER_RADIUS= 20;
+	//Settings
+	public static final boolean ONLY_K_AS_BASE = true,
+			ACE_INSTEAD_OF_1 = true;
 
 
 	public static void main(String args[]) {

@@ -16,9 +16,13 @@ public class Card {
 	public CardSuit getCardSuit() { return cardSuit; }
 	public Color getCardColor() { return cardSuit.getColor(); }
 
-	private boolean hidden;
+	private boolean hidden = false;
 	public boolean isHidden() { return hidden; }
-	public void setHidden(boolean hidden) { this.hidden= hidden; }
+	public void setHidden(boolean hidden) { this.hidden = hidden; }
+
+	private boolean visible = true;
+	public boolean isVisible() { return visible; }
+	public void setVisible(boolean visible) { this.visible = visible; }
 
 	//ABBREVIATION  -------------------------------
 	public String getAbbreviation() {

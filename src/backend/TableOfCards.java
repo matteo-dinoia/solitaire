@@ -8,7 +8,7 @@ import interfaces.BackendHandler;
 public class TableOfCards implements BackendHandler{
 	public CardListColumn[] columns=new CardListColumn[App.NUM_COLS_TABLE];
 	public CardListPile[] topPiles=new CardListPile[App.NUM_SLOT_PILE];
-	public CardListDeck deck =new CardListDeck();
+	public CardListDiscarded deck =new CardListDiscarded();
 
 	public TableOfCards() {
 		initializeArrays(); //For avoiding null-pointer
@@ -69,6 +69,7 @@ public class TableOfCards implements BackendHandler{
 		if(coord.isDiscardedPile()) return deck;
 		else if(coord.isPiles()) return topPiles[coord.getCol()-3];
 		else if(coord.isColumn()) return columns[coord.getCol()];
+		else if(coord.isDeck()) return deck.getCardListDeck();
 		else return null;
 	}
 
@@ -115,5 +116,13 @@ public class TableOfCards implements BackendHandler{
 		}
 
 		return deck.isEmpty();
+	}
+
+	@Override public SubCardList getSubCardList(CardCoord base){
+		return SubCardList.getSubCardList(getCardList(base), base.getRow());
+	}
+	@Override
+	public Card getPreviousDeckCard() {
+		return deck.getPrevCard();
 	}
 }

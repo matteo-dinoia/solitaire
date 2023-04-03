@@ -6,6 +6,8 @@ import interfaces.*;
 import backend.App;
 import card_entity.Card;
 import card_entity.CardCoord;
+import card_entity.CardValue;
+import card_list.SubCardList;
 
 
 /*TODO partial print-> backPartial(x, y) / frontPartial(x, y, cardToDisplay)*/
@@ -51,31 +53,57 @@ public class PanelCanvas extends JPanel implements MoveListener{
 	}
 
 	private void paintGame() {
+		//Temp
+		paintCardFrontFull(getXColumnN(1), 10, backend.getPreviousDeckCard(), false); //TODO REMOVE
 		//FULL DECK
 		if(!backend.isEmplyDeckPile())paintCardBackFull(getXColumnN(0), 10);
-		else paintCardFrontFull(getXColumnN(0), 10, null);
+		else paintCardFrontFull(getXColumnN(0), 10, null, false);
 		//DISCARDED CARD
-		paintCardFrontFull(getXColumnN(1), 10, backend.getDeckCard());
+		paintCardFrontFull(getXColumnN(1), 10, backend.getDeckCard(), false);
 
 		//PILES
-		for(int i=0; i<App.NUM_SLOT_PILE; i++)
-			paintCardFrontFull(getXColumnN(i+3), 10, backend.getPileCard(i));
+		for(int i=0; i<App.NUM_SLOT_PILE; i++){
+			Card c = backend.getPileCard(i);
+
+			if(c != null){
+				CardValue prevVal = c.getCardValue().getPrevCardValue();
+
+				if(prevVal != null){
+					Card prev = new Card(prevVal, c.getCardSuit());
+					paintCardFrontFull(getXColumnN(i+3), 10, prev, false);
+				}else{
+					paintCardFrontFull(getXColumnN(i+3), 10, null, false);
+				}
+			}
+
+			paintCardFrontFull(getXColumnN(i+3), 10, c, false);
+		}
+
 
 		//COLUMNS
 		for(int i=0; i<App.NUM_COLS_TABLE; i++) {
-			for(int i2=0; i2<backend.getSizeColumnN(i) || i2==0; i2++) {
+			paintCardFrontFull(getXColumnN(i), getYColumnElementN(0), null, false); //TODO REMOVE
+
+			for(int i2=0; i2<backend.getSizeColumnN(i); i2++) {
 				Card card=backend.getColumnCard(i, i2);
 				if(card != null && card.isHidden())
 					paintCardBackFull(getXColumnN(i), getYColumnElementN(i2));
 				else
-					paintCardFrontFull(getXColumnN(i), getYColumnElementN(i2), card);
+					paintCardFrontFull(getXColumnN(i), getYColumnElementN(i2), card, false);
 			}
 		}
 
 		//GHOST
-		if(mouse.getNumSelected() > 0) {
-			for(int i = 0; i < mouse.getNumSelected(); i++)
-				paintCardGhost(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT, App.HEIGHT+(mouse.getNumSelected()-i-1)*App.PARTIAL_HEIGHT);
+		SubCardList selected = mouse.getSelectedCard();
+		if(selected != null && !selected.isEmpty()) {
+			for(int i = 0; i < selected.size(); i++){
+				Card card = selected.get(i);
+
+				if(card != null && card.isHidden())
+					paintCardBackFull(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT);
+				else
+					paintCardFrontFull(mouse.getX(), mouse.getY() + i * App.PARTIAL_HEIGHT, card, true);
+			}
 		}
 	}
 
@@ -103,18 +131,18 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		fillAndDrawRoundRect(x+App.LINE_THICKENESS*3, y+App.LINE_THICKENESS*3, App.WIDTH-6*App.LINE_THICKENESS, App.HEIGHT-6*App.LINE_THICKENESS, Color.black, Color.blue);
 	}
 
-	private void paintCardGhost(int x, int y, int height) {
+	/*private void paintCardGhost(int x, int y, int height) {
 		drawRoundRect(x, y, App.WIDTH, height, Color.black);
 		drawRoundRect(x+1, y+1, App.WIDTH-2, height-2, Color.black);
 		drawRoundRect(x+2, y+2, App.WIDTH-4, height-4, Color.black);
 		drawRoundRect(x+3, y+3, App.WIDTH-6, height-6, Color.black);
-	}
+	}*/
 
-	private void paintCardFrontFull(int x, int y, Card cardToDisplay) {
-		if(cardToDisplay==null) { //missing card
+	private void paintCardFrontFull(int x, int y, Card cardToDisplay, boolean forceDisplay) {
+		if(cardToDisplay == null) { //missing card
 			fillAndDrawRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.black, Color.gray);
 			return;
-		}
+		}else if(!cardToDisplay.isVisible() && !forceDisplay) return;
 
 		//BOLD SHAPE
 		fillRoundRect(x, y, App.WIDTH, App.HEIGHT, Color.white);

@@ -5,12 +5,14 @@ import java.awt.event.*;
 import interfaces.*;
 import backend.App;
 import card_entity.CardCoord;
+import card_list.SubCardList;
 
 public class MouseHandler implements MouseListener, MouseMotionListener{
 	private CardCoord oldCoord=null;
 	private MoveListener moveListener;
 	private BackendHandler backend;
-	private int xMouse=0, yMouse=0, offsetX=0, offsetY=0, numCard=0;
+	private SubCardList selectedCards = null;
+	private int xMouse=0, yMouse=0, offsetX=0, offsetY=0;
 
 
 	public MouseHandler(MoveListener moveListener, BackendHandler backend){
@@ -18,9 +20,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 		this.backend = backend;
 	}
 
-	public Integer getX(){return numCard <= 0 ? null : xMouse + offsetX;}
-	public Integer getY(){return numCard <= 0 ? null : yMouse + offsetY;}
-	public int getNumSelected(){return numCard;}
+	public Integer getX(){return selectedCards == null ? null : xMouse + offsetX;}
+	public Integer getY(){return selectedCards == null ? null : yMouse + offsetY;}
 
 
 	/**@return -2 if not valid, else it return a column index (0 to 6)*/
@@ -78,11 +79,15 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 			offsetY= - (yMouse-App.SPACE_BETWEEN);
 		else
 			offsetY= - ((yMouse-App.SPACE_BETWEEN*2-App.HEIGHT) - oldCoord.getRow()*App.PARTIAL_HEIGHT);
-		numCard = backend.getSelectedNum(oldCoord);
+		selectedCards = backend.getSubCardList(oldCoord);
+		if(selectedCards != null) selectedCards.setVisibilityCards(false);
 	}
 
 	@Override public void mouseReleased(MouseEvent e) {
-		numCard = 0;
+		if(selectedCards == null) return;
+
+		selectedCards.setVisibilityCards(true);
+		selectedCards = null;
 		moveListener.makeMove(oldCoord, getCardCoordByMouseXY(e.getX(), e.getY()));
 	}
 
@@ -98,4 +103,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 	@Override public void mouseClicked(MouseEvent e) {}
 	@Override public void mouseEntered(MouseEvent e) {}
 	@Override public void mouseExited(MouseEvent e) {}
+
+	public SubCardList getSelectedCard(){
+		return selectedCards;
+	}
 }
