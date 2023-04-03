@@ -96,7 +96,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 
 		xMouse=e.getX();
 		yMouse=e.getY();
-		moveListener.updateGraphics();
+		moveListener.updateGraphics(false);
 	}
 
 	@Override public void mouseMoved(MouseEvent e) {}
