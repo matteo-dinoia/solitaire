@@ -10,6 +10,9 @@ public class Settings {
 		LINE_THICKENESS = 4,
 		CORNER_RADIUS= 20;
 
+	//Directory
+	public static final String IMG_PATH = "./../img/";
+
 	//User related
 	public static boolean onlyKing = false;
 	public static boolean aceInsetad = true;
