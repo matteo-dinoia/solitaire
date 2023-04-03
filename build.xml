@@ -18,7 +18,7 @@
 	<target name="compile" depends="init"
 	description="compile the source">
 		<!-- Compile the Java code from ${src} into ${build} -->
-		<javac sourcepath="" srcdir="${src}" destdir="${build}" >
+		<javac includeantruntime="false" sourcepath="" srcdir="${src}" destdir="${build}" >
 			<include name="**/*.java"/>
 		</javac>
 	</target>
