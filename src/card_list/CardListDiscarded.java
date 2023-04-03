@@ -1,6 +1,5 @@
 package card_list;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import card_entity.*;
 
