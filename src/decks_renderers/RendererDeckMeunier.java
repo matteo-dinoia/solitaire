@@ -6,11 +6,11 @@ public class RendererDeckMeunier extends RendererDeck{
 
 
 	public RendererDeckMeunier() {
-		super("victor_meunier/PNG/white-smaller/");
+		super("victor_meunier/white-smaller/");
 	}
 
 	@Override protected String getBackName() {
-		return "../black/back.png";
+		return "../back.png";
 	}
 
 	@Override protected String getFrontName(Card card) {
