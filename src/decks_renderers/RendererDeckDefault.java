@@ -4,10 +4,12 @@ import card_entity.Card;
 
 public class RendererDeckDefault extends RendererDeck {
 
-	public RendererDeckDefault() {
-		super("");
-		imageFull = ImgAdvanced.getFromFile(basePath + "default.png");
+	public RendererDeckDefault(String fileName) {
+		super("converted/");
+
+		imageFull = ImgAdvanced.getFromFile(basePath + fileName);
 		imageFull.addGrid(13, 5);
+
 		imageEmpty = imageFull.getGridElement(1, 4, 0, 0);
 	}
 

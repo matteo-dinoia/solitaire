@@ -43,10 +43,15 @@ public class ImgAdvanced{
 	}
 
 	public ImgAdvanced getGridElement(int col, int row, int paddingX, int paddingY){
+		return getGridElement(col, row, paddingX, paddingX, paddingY, paddingY);
+	}
+
+	public ImgAdvanced getGridElement(int col, int row, int paddingL, int paddingR, int paddingT, int paddingB){
 		int hSize = img.getWidth() / colGrid;
 		int vSize = img.getHeight() / rowGrid;
 
-		return getCropped(hSize * col, vSize * row, hSize - paddingX * 2, vSize - paddingY * 2);
+		return getCropped(hSize * col + paddingL, vSize * row + paddingT,
+				hSize - (paddingL + paddingR), vSize - (paddingT + paddingB));
 	}
 
 	public ImgAdvanced getCropped(int x, int y, int width, int height){

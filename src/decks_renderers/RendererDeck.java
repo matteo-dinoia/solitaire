@@ -1,6 +1,9 @@
 package decks_renderers;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import backend.Settings;
 import card_entity.*;
@@ -27,10 +30,14 @@ public abstract class RendererDeck {
 				renderer = new RendererDeckMeunier();
 				break;
 			case "yewbi":
-				renderer = new RendererDeckYewbi();
+				renderer =new RendererDeckDefault("yewbi.png");
+				break;
+			case "blueeyedrat":
+				renderer =new RendererDeckDefault("blueeyedrat.png");
 				break;
 			default:
-				renderer = new RendererDeckDefault();
+				renderer = new RendererDeckDefault("default.png");
+
 		}
 
 		return renderer;
@@ -78,5 +85,29 @@ public abstract class RendererDeck {
 		}
 
 		imageBack = getImage(null);
+	}
+
+	protected final void saveToSaneFormat(int width, int height, String fileName){
+		BufferedImage img = new BufferedImage(13 * width, 5 * height, BufferedImage.TYPE_INT_ARGB_PRE);
+		Graphics2D g = (Graphics2D) img.getGraphics();
+		g.setBackground(new Color(0, 0, 0, 0));
+
+		int x = 0, y = 0;
+		for(CardValue val : CardValue.values()){
+			g.drawImage(getFrontImage(new Card(val, CardSuit.SPADES)), x * width, 0 * height, width, height, null, null);
+			g.drawImage(getFrontImage(new Card(val, CardSuit.DIAMONDS)), x * width, 1 * height, width, height, null, null);
+			g.drawImage(getFrontImage(new Card(val, CardSuit.CLUBS)), x * width, 2 * height, width, height, null, null);
+			g.drawImage(getFrontImage(new Card(val, CardSuit.HEARTS)), x * width, 3 * height, width, height, null, null);
+			x++;
+		}
+
+		g.drawImage(getBackImage(), 0 * width, 4 * height, width, height, null, null);
+		g.drawImage(getEmptyImage(), 1 * width, 4 * height, width, height, null, null);
+		g.setColor(Color.RED);
+		g.drawRoundRect(12 * width, 4 * height, width - 1, height - 1, 20, 20);
+		g.setColor(Color.BLACK);
+
+		g.dispose();
+		new ImgAdvanced(img).writeOnFile("../img/converted/" + fileName);
 	}
 }
