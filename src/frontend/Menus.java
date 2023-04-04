@@ -50,31 +50,27 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 
 		//Radio btn for style
 		file.add(new JSeparator());
+		addRadioStyle(file, "default", false, "Style default");
+		addRadioStyle(file, "yewbi", true, "Style by Yewbi");
+		addRadioStyle(file, "dani", false, "Style by Dani Macarri");
+		addRadioStyle(file, "victor", false, "Style by Victor Meunier");
 
-		JRadioButtonMenuItem radioStyleDani = new JRadioButtonMenuItem("Style Dani Macarri");
-		radioStyleDani.setActionCommand("dani");
-		radioStyleDani.addItemListener(this);
-		group.add(radioStyleDani);
-		file.add(radioStyleDani);
 
-		JRadioButtonMenuItem radioStyleVictor = new JRadioButtonMenuItem("Style Victror Meunier");
-		radioStyleVictor.setActionCommand("victor");
-		radioStyleVictor.addItemListener(this);
-		group.add(radioStyleVictor);
-		file.add(radioStyleVictor);
 
-		JRadioButtonMenuItem radioStyleYewbi = new JRadioButtonMenuItem("Style Yewbi");
-		radioStyleYewbi.setActionCommand("yewbi");
-		radioStyleYewbi.addItemListener(this);
-		group.add(radioStyleYewbi);
-		file.add(radioStyleYewbi);
 
 		//Setting default
-		group.setSelected(radioStyleYewbi.getModel(), true);
 		Settings.style = group.getSelection().getActionCommand();
 	}
 
+	private void addRadioStyle(JMenu menu, String actionCommand, boolean select, String longName){
+		JRadioButtonMenuItem radio = new JRadioButtonMenuItem(longName);
+		radio.setActionCommand(actionCommand);
+		radio.addItemListener(this);
+		group.add(radio);
+		menu.add(radio);
 
+		group.setSelected(radio.getModel(), select);
+	}
 
 	@Override public void actionPerformed(ActionEvent event) {
 		switch(event.getActionCommand()){

@@ -29,6 +29,8 @@ public abstract class RendererDeck {
 			case "yewbi":
 				renderer = new RendererDeckYewbi();
 				break;
+			default:
+				renderer = new RendererDeckDefault();
 		}
 
 		return renderer;

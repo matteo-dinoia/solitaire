@@ -113,12 +113,12 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 	private void fillRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.fillRoundRect(x, y, width, height, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
+		currentGraphics.fillRoundRect(x, y, width - 1, height - 1, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
 	}
 
 	private void drawRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.drawRoundRect(x, y, width, height, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
+		currentGraphics.drawRoundRect(x, y, width - 1, height - 1, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
 	}
 
 	private void fillAndDrawRoundRect(int x, int y, int width, int height, Color drawColor, Color fillColor) {

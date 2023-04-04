@@ -23,7 +23,13 @@ public class ImgAdvanced{
 		return new ImgAdvanced(img);
 	}
 
-	private ImgAdvanced(BufferedImage img){
+	public void writeOnFile(String pathNameResult){
+		try {
+			ImageIO.write(this.img, "png", new File(pathNameResult));
+		} catch (IOException e) {}
+	}
+
+	public ImgAdvanced(BufferedImage img){
 		this.img = img;
 	}
 
