@@ -1,5 +1,8 @@
 # Solitaire
-A solitaire game using Java Swing as UI
+A solitaire game using Java Swing as UI. With some notable features being:
+1. Themes support
+2. Animations
+3. Rules settings
 
 ## Images
-![image](https://user-images.githubusercontent.com/73781428/199936984-f3a609db-aee5-43b6-b49d-b3a623ddf2d6.png)
+![image](https://user-images.githubusercontent.com/73781428/229790449-1535e79b-7b33-4f22-b3a8-a8c10317e051.png)
