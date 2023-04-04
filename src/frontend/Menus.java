@@ -52,6 +52,7 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 		file.add(new JSeparator());
 		addRadioStyle(file, "default", false, "Style default");
 		addRadioStyle(file, "yewbi", true, "Style by Yewbi");
+		addRadioStyle(file, "blueeyedrat", false, "Style by Blueyedrat");
 		addRadioStyle(file, "dani", false, "Style by Dani Macarri");
 		addRadioStyle(file, "victor", false, "Style by Victor Meunier");
 
