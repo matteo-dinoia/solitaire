@@ -8,8 +8,6 @@ import card_entity.*;
 import card_list.SubCardList;
 import decks_renderers.RendererDeck;
 
-
-/*TODO partial print-> backPartial(x, y) / frontPartial(x, y, cardToDisplay)*/
 public class PanelCanvas extends JPanel implements MoveListener{
 	private static final long serialVersionUID = 883516271508061367L;
 	private MouseHandler mouse;
@@ -111,16 +109,15 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		}
 	}
 
+	//TODO REMOVE
 	private void fillRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.fillRoundRect(x, y, width - 1, height - 1, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
+		currentGraphics.fillRoundRect(x, y, width - 1, height - 1, 20, 20);
 	}
-
 	private void drawRoundRect(int x, int y, int width, int height, Color color) {
 		currentGraphics.setColor(color);
-		currentGraphics.drawRoundRect(x, y, width - 1, height - 1, Settings.CORNER_RADIUS, Settings.CORNER_RADIUS);
+		currentGraphics.drawRoundRect(x, y, width - 1, height - 1, 20, 20);
 	}
-
 	private void fillAndDrawRoundRect(int x, int y, int width, int height, Color drawColor, Color fillColor) {
 		fillRoundRect(x, y, width, height, fillColor);
 		drawRoundRect(x, y, width, height, drawColor);
