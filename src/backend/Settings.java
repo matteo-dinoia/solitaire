@@ -6,9 +6,7 @@ public class Settings {
 	public static final int WIDTH=100,
 		HEIGHT=(int)(1.6*WIDTH),
 		PARTIAL_HEIGHT=(int)(0.2*HEIGHT),
-		SPACE_BETWEEN=10,
-		LINE_THICKENESS = 4,
-		CORNER_RADIUS= 20;
+		SPACE_BETWEEN=10;
 
 	//Directory
 	public static final String IMG_PATH = "./../img/";
