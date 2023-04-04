@@ -16,4 +16,5 @@ public class Settings {
 	//User related
 	public static boolean onlyKing = false;
 	public static boolean aceInsetad = true;
+	public static String style = null;
 }

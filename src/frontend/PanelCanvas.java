@@ -128,7 +128,12 @@ public class PanelCanvas extends JPanel implements MoveListener{
 
 	private void paintCard(int x, int y, Card cardToDisplay, boolean forceDisplay) {
 		if(cardToDisplay == null) { //missing card
-			fillAndDrawRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.black, Color.gray);
+			Image img = currentRender.getEmptyImage();
+
+			if(img == null)
+				fillAndDrawRoundRect(x, y, Settings.WIDTH, Settings.HEIGHT, Color.black, Color.gray);
+			else
+				currentGraphics.drawImage(img, x, y, Settings.WIDTH, Settings.HEIGHT, null, null);
 			return;
 		}else if(!cardToDisplay.isVisible() && !forceDisplay){ //invisible card
 			return;

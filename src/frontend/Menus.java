@@ -6,7 +6,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
-import javax.swing.JMenuBar;
 
 import backend.Settings;
 
@@ -14,6 +13,7 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 	private FrameGame frame;
 	private JCheckBoxMenuItem checkOnlyKing = new JCheckBoxMenuItem("Only king in empty space");
 	private JCheckBoxMenuItem checkAceInstead = new JCheckBoxMenuItem("Use ace symbol instead");
+	private ButtonGroup group = new ButtonGroup();
 
 	public Menus(FrameGame frame){
 		this.frame = frame;
@@ -48,7 +48,33 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 
 		checkAceInstead.addItemListener(this);
 		checkAceInstead.setSelected(true);
+		checkAceInstead.setEnabled(false);
 		file.add(checkAceInstead);
+
+		//Radio btn for style
+		file.add(new JSeparator());
+
+		JRadioButtonMenuItem radioStyleDani = new JRadioButtonMenuItem("Style Dani Macarri");
+		radioStyleDani.setActionCommand("dani");
+		radioStyleDani.addItemListener(this);
+		group.add(radioStyleDani);
+		file.add(radioStyleDani);
+
+		JRadioButtonMenuItem radioStyleVictor = new JRadioButtonMenuItem("Style Victror Meunier");
+		radioStyleVictor.setActionCommand("victor");
+		radioStyleVictor.addItemListener(this);
+		group.add(radioStyleVictor);
+		file.add(radioStyleVictor);
+
+		JRadioButtonMenuItem radioStyleYewbi = new JRadioButtonMenuItem("Style Yewbi");
+		radioStyleYewbi.setActionCommand("yewbi");
+		radioStyleYewbi.addItemListener(this);
+		group.add(radioStyleYewbi);
+		file.add(radioStyleYewbi);
+
+		//Setting default
+		group.setSelected(radioStyleYewbi.getModel(), true);
+		Settings.style = group.getSelection().getActionCommand();
 	}
 
 
@@ -65,10 +91,12 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 		}
 	}
 
-	@Override public void itemStateChanged(ItemEvent arg0) {
+	@Override public void itemStateChanged(ItemEvent event) {
 		Settings.onlyKing = checkOnlyKing.isSelected();
 		Settings.aceInsetad = checkAceInstead.isSelected();
 
+		if(group.getSelection() != null)
+			Settings.style = group.getSelection().getActionCommand();
 		frame.refreshScreen();
 	}
 

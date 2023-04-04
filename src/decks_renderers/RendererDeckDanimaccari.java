@@ -1,50 +1,40 @@
 package decks_renderers;
 
-import java.awt.Image;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 import card_entity.Card;
 
 public class RendererDeckDanimaccari extends RendererDeck {
-	private Image fullImage = null;
 
 	public RendererDeckDanimaccari() {
-		super("cute_danimaccari/splitted/");
-		//preload();
+		super("cute_danimaccari/");
+		imageFull = ImgAdvanced.getFromFile(basePath + "CuteCards_outline.png");
+		imageFull.addGrid(15, 4);
 	}
 
-	@Override
-	protected String getBackName() {
-		return "row-4-column-15.png";
+	@Override protected String getBackName() {return null;}
+	@Override protected String getFrontName(Card card) {return null;}
+
+	@Override protected ImgAdvanced getImage(Card card){
+		return imageFull.getGridElement(getCol(card) - 1, getRow(card) - 1, 0, 0);
 	}
 
-	@Override
-	protected String getFrontName(Card card) {
-		String name = "row-";
+	private int getCol(Card card){
+		if(card == null) return 15;
+		else return card.getCardValue().getIntValue();
+	}
+
+	private int getRow(Card card){
+		if(card == null) return 4;
 
 		switch(card.getCardSuit()){
-			case DIAMONDS:
-				name += "2";
-				break;
 			case CLUBS:
-				name += "1";
-				break;
+				return 3;
+			case DIAMONDS:
+				return 2;
 			case HEARTS:
-				name += "4";
-				break;
+				return 4;
 			case SPADES:
-				name += "3";
-				break;
+				return 1;
 		}
-
-		return name + "-column-" + card.getCardValue().getIntValue() + ".png";
+		return 0;
 	}
-/*
-	@Override protected Image getImage(String cardName) {
-		if(fullImage == null)
-			fullImage = ImageIO.read(new File(basePath + ""));
-		return super.getImage(cardName);
-	}*/
 }

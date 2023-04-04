@@ -1,7 +1,5 @@
 package decks_renderers;
 
-import java.awt.Image;
-
 import card_entity.Card;
 
 public class RendererDeckMeunier extends RendererDeck{
@@ -9,7 +7,6 @@ public class RendererDeckMeunier extends RendererDeck{
 
 	public RendererDeckMeunier() {
 		super("victor_meunier/PNG/white-smaller/");
-		//preload();
 	}
 
 	@Override protected String getBackName() {
@@ -54,13 +51,4 @@ public class RendererDeckMeunier extends RendererDeck{
 
 		return name + "_white.png";
 	}
-
-
-	/*@Override protected Image getImage(Card card) {
-		//super.getImage(card)
-		return null;
-	}*/
-
-
-
 }

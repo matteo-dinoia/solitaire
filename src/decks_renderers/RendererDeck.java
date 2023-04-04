@@ -1,22 +1,36 @@
 package decks_renderers;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import javax.imageio.ImageIO;
 import backend.Settings;
-import card_entity.Card;
-import card_entity.CardSuit;
-import card_entity.CardValue;
+import card_entity.*;
 
 public abstract class RendererDeck {
 	protected String basePath;
-	protected HashMap<Card, Image> imagesFront = new HashMap<>();
-	protected Image imageBack = null;
+	protected HashMap<Card, ImgAdvanced> imagesFront = new HashMap<>();
+	protected ImgAdvanced imageBack = null;
+	protected ImgAdvanced imageFull = null;
+	protected ImgAdvanced imageEmpty = null;
 
-	private static RendererDeck renderer = new RendererDeckDanimaccari();// = new RendererDeckMeunier();
+
+	private static RendererDeck renderer;
+	private static String oldStyle = null;
 	public static RendererDeck get(){
+		if(oldStyle == Settings.style && renderer != null)
+			return renderer;
+
+		switch(Settings.style){
+			case "dani":
+				renderer = new RendererDeckDanimaccari();
+				break;
+			case "victor":
+				renderer = new RendererDeckMeunier();
+				break;
+			case "yewbi":
+				renderer = new RendererDeckYewbi();
+				break;
+		}
+
 		return renderer;
 	}
 
@@ -28,38 +42,39 @@ public abstract class RendererDeck {
 		this.basePath = Settings.IMG_PATH + basePath;
 	}
 
+	public final Image getEmptyImage() {return imageEmpty == null ? null : imageEmpty.getImage();}
+
 	public final Image getFrontImage(Card card){
 		if(!imagesFront.containsKey(card))
 			imagesFront.put(card, getImage(card));
-		return imagesFront.get(card);
+
+		ImgAdvanced img = imagesFront.get(card);
+		if(img == null) return null;
+		return img.getImage();
 	}
 
 	public final Image getBackImage(){
 		if(imageBack == null)
 			imageBack = getImage(null);
-		return imageBack;
+		return imageBack.getImage();
 	}
 
-	protected Image getImage(Card card){
+	protected ImgAdvanced getImage(Card card){
 		String cardName;
 		if(card == null) cardName = getBackName();
 		else cardName = getFrontName(card);
 
-		try {
-			return ImageIO.read(new File(basePath + cardName));
-		} catch (IOException e) {}
-
-		return null;
+		return ImgAdvanced.getFromFile(basePath + cardName);
 	}
 
 	protected void preload(){
 		for(CardValue value : CardValue.values()){
 			for(CardSuit suit : CardSuit.values()){
 				Card card = new Card(value, suit);
-				imagesFront.put(card, getFrontImage(card));
+				imagesFront.put(card, getImage(card));
 			}
 		}
 
-		imageBack = getBackImage();
+		imageBack = getImage(null);
 	}
 }
