@@ -6,7 +6,7 @@
 	<!-- set global properties for this build -->
 	<property name="src" location="src"/>
 	<property name="build" location="build"/>
-	<property name="dist" location="dist"/>
+	<property name="dist" location="dist/files"/>
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -25,11 +25,17 @@
 
 	<target name="dist" depends="compile" description="generate the distribution">
 		<mkdir dir="${dist}"/>
-		<jar jarfile="${dist}/output-${DSTAMP}.jar" basedir="${build}">
+		<jar jarfile="${dist}/bin/solitaire.jar" basedir="${build}">
 			<manifest>
 				<attribute name="Main-Class" value="backend.App"/>
 			</manifest>
 		</jar>
+
+		<copy todir="${dist}/img"> <fileset dir="img"/> </copy>
+		<copy file="Solitaire.sh" todir="${dist}"/>
+		<chmod file="${dist}/Solitaire.sh" perm="+x"/>
+		<copy file="Solitaire.bat" todir="${dist}"/>
+		<zip basedir="${dist}" destfile="dist/solitaire.zip"/>
 	</target>
 
 	<target name="run" depends="compile" description="run the source">

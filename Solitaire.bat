@@ -1,0 +1,1 @@
+cd bin && java -jar solitaire.jar &
