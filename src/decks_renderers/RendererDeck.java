@@ -23,12 +23,6 @@ public abstract class RendererDeck {
 			return renderer;
 
 		switch(Settings.style){
-			case "dani":
-				renderer = new RendererDeckDanimaccari();
-				break;
-			case "victor":
-				renderer = new RendererDeckMeunier();
-				break;
 			case "yewbi":
 				renderer =new RendererDeckDefault("yewbi.png");
 				break;

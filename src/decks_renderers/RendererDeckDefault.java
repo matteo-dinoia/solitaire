@@ -5,7 +5,7 @@ import card_entity.Card;
 public class RendererDeckDefault extends RendererDeck {
 
 	public RendererDeckDefault(String fileName) {
-		super("converted/");
+		super("");
 
 		imageFull = ImgAdvanced.getFromFile(basePath + fileName);
 		imageFull.addGrid(13, 5);
