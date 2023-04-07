@@ -86,7 +86,7 @@ public abstract class RendererDeck {
 		Graphics2D g = (Graphics2D) img.getGraphics();
 		g.setBackground(new Color(0, 0, 0, 0));
 
-		int x = 0, y = 0;
+		int x = 0;
 		for(CardValue val : CardValue.values()){
 			g.drawImage(getFrontImage(new Card(val, CardSuit.SPADES)), x * width, 0 * height, width, height, null, null);
 			g.drawImage(getFrontImage(new Card(val, CardSuit.DIAMONDS)), x * width, 1 * height, width, height, null, null);
