@@ -29,8 +29,8 @@ public class PanelCanvas extends JPanel implements MoveListener{
 		this.updateGraphics(true);
 	}
 	private void setParameters() {
-		int size=getXColumnN(7); //so that it can stay exacly 7 columns
-		this.setPreferredSize(new Dimension(size, size));
+		//int size=getXColumnN(Settings.NUM_COLS_TABLE); //so that it can stay exacly 7 columns
+		this.setPreferredSize(new Dimension(Settings.WIN_W, Settings.WIN_H));
 	}
 
 	private int getXColumnN(int numOfColumn) {

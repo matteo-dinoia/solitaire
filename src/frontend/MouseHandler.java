@@ -54,7 +54,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener{
 			if(yRelative < Settings.HEIGHT) return 0;
 		}
 		else if(yRelative - Settings.PARTIAL_HEIGHT*(sizeCol-1) < Settings.HEIGHT) {
-			return sizeCol-1;  //Last larger card
+			return sizeCol-1; //Last larger card
 		}
 
 		return CardCoord.NOT_VALID_POINT;
