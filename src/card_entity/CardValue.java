@@ -1,7 +1,5 @@
 package card_entity;
 
-import backend.Settings;
-
 public enum CardValue {
 
 	//VALUE  --------------------------------

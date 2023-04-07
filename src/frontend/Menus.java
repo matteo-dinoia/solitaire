@@ -9,7 +9,6 @@ import backend.Settings;
 public class Menus extends JMenuBar implements ActionListener, ItemListener{
 	private FrameGame frame;
 	private JCheckBoxMenuItem checkOnlyKing = new JCheckBoxMenuItem("Only king in empty space");
-	private JCheckBoxMenuItem checkAceInstead = new JCheckBoxMenuItem("Use ace symbol instead");
 	private ButtonGroup group = new ButtonGroup();
 
 	public Menus(FrameGame frame){
@@ -42,11 +41,6 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 		checkOnlyKing.addItemListener(this);
 		checkOnlyKing.setSelected(true);
 		file.add(checkOnlyKing);
-
-		checkAceInstead.addItemListener(this);
-		checkAceInstead.setSelected(true);
-		checkAceInstead.setEnabled(false);
-		file.add(checkAceInstead);
 
 		//Radio btn for style
 		file.add(new JSeparator());
@@ -82,10 +76,9 @@ public class Menus extends JMenuBar implements ActionListener, ItemListener{
 
 	@Override public void itemStateChanged(ItemEvent event) {
 		Settings.onlyKing = checkOnlyKing.isSelected();
-		Settings.aceInsetad = checkAceInstead.isSelected();
-
 		if(group.getSelection() != null)
 			Settings.style = group.getSelection().getActionCommand();
+
 		frame.refreshScreen();
 	}
 
